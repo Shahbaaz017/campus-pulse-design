@@ -12,9 +12,10 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { id: 'home', label: 'Home', icon: '🏠', path: '/dashboard' },
-  { id: 'clubs', label: 'Clubs', icon: '👥', path: '/clubs' },
+  { id: 'communities', label: 'Communities', icon: '👥', path: '/communities' },
   { id: 'resources', label: 'Resources', icon: '📚', path: '/resources' },
   { id: 'results', label: 'Results', icon: '📊', path: '/results' },
+  { id: 'attendance', label: 'Attendance', icon: '📅', path: '/attendance' },
   { id: 'settings', label: 'Settings', icon: '⚙️', path: '/settings' },
 ];
 

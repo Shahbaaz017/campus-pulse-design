@@ -11,7 +11,9 @@ import NotFound from "./pages/NotFound";
 import LoginScreen from "@/components/auth/LoginScreen";
 import Dashboard from "@/components/dashboard/Dashboard";
 import ResultsScreen from "@/components/results/ResultsScreen";
-import ClubsScreen from "@/components/clubs/ClubsScreen";
+import CommunitiesScreen from "@/components/communities/CommunitiesScreen";
+import CommunityDetailScreen from "@/components/communities/CommunityDetailScreen";
+import AttendanceScreen from "@/components/attendance/AttendanceScreen";
 import ResourcesScreen from "@/components/resources/ResourcesScreen";
 import SettingsScreen from "@/components/settings/SettingsScreen";
 
@@ -46,10 +48,26 @@ const AppRoutes = () => {
         } 
       />
       <Route 
-        path="/clubs" 
+        path="/communities" 
         element={
           <ProtectedRoute>
-            <ClubsScreen />
+            <CommunitiesScreen />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/communities/:communityId" 
+        element={
+          <ProtectedRoute>
+            <CommunityDetailScreen />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/attendance" 
+        element={
+          <ProtectedRoute>
+            <AttendanceScreen />
           </ProtectedRoute>
         } 
       />
