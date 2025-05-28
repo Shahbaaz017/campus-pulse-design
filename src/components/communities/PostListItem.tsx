@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { ChevronUp, ChevronDown, MessageSquare } from 'lucide-react';
-import { Post, User } from '@/data/communitySampleData';
+import { Post, User, Community } from '@/data/communitySampleData';
 
 interface PostListItemProps {
-  post: Post & { author: User };
+  post: Post & { author: User; community?: Community };
   index: number;
+  showCommunity?: boolean;
   onClick: () => void;
 }
 
-const PostListItem: React.FC<PostListItemProps> = ({ post, index, onClick }) => {
+const PostListItem: React.FC<PostListItemProps> = ({ post, index, showCommunity = false, onClick }) => {
   const [userVote, setUserVote] = useState<'up' | 'down' | null>(post.userVote || null);
   const [upvotes, setUpvotes] = useState(post.upvotes);
 
@@ -48,6 +50,15 @@ const PostListItem: React.FC<PostListItemProps> = ({ post, index, onClick }) => 
       onClick={onClick}
     >
       <CardContent className="p-4">
+        {/* Community Badge (if showing in feed) */}
+        {showCommunity && post.community && (
+          <div className="mb-2">
+            <Badge variant="outline" className="text-xs border-unicampus-red text-unicampus-red">
+              {post.community.icon} {post.community.name}
+            </Badge>
+          </div>
+        )}
+
         {/* Author Info */}
         <div className="flex items-center space-x-3 mb-3">
           <Avatar className="h-8 w-8">

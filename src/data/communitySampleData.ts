@@ -36,6 +36,9 @@ export interface Comment {
   timestamp: Date;
 }
 
+// User following data for filtering posts
+export const userFollowedCommunityIds = ['1', '4']; // Following Placement Prep and Coding Hangout
+
 export const users: User[] = [
   { id: '1', name: 'Ananya Sharma', avatarUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150' },
   { id: '2', name: 'Rahul Kumar', avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150' },
@@ -186,4 +189,31 @@ export const getPopulatedComments = (postId: string): (Comment & { author: User 
     ...comment,
     author: users.find(user => user.id === comment.authorId)!
   }));
+};
+
+// Helper function to get all posts with community info for feeds
+export const getAllPopulatedPosts = (): (Post & { author: User; community: Community })[] => {
+  const allPosts: (Post & { author: User; community: Community })[] = [];
+  
+  Object.values(posts).forEach(communityPosts => {
+    communityPosts.forEach(post => {
+      const author = users.find(user => user.id === post.authorId)!;
+      const community = communities.find(comm => comm.id === post.communityId)!;
+      allPosts.push({ ...post, author, community });
+    });
+  });
+
+  return allPosts;
+};
+
+// Helper function to get trending posts (sorted by upvotes)
+export const getTrendingPosts = (): (Post & { author: User; community: Community })[] => {
+  return getAllPopulatedPosts().sort((a, b) => b.upvotes - a.upvotes);
+};
+
+// Helper function to get following posts (only from followed communities)
+export const getFollowingPosts = (): (Post & { author: User; community: Community })[] => {
+  return getAllPopulatedPosts()
+    .filter(post => userFollowedCommunityIds.includes(post.communityId))
+    .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 };

@@ -1,80 +1,73 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Plus } from 'lucide-react';
 import BottomNavigation from '@/components/layout/BottomNavigation';
-import { communities } from '@/data/communitySampleData';
-import { useNavigate } from 'react-router-dom';
+import TrendingPostsTab from './TrendingPostsTab';
+import FollowingFeedTab from './FollowingFeedTab';
+import BrowseCommunitiesTab from './BrowseCommunitiesTab';
 
 const CommunitiesScreen = () => {
-  const navigate = useNavigate();
+  const handleCreatePost = () => {
+    // TODO: Navigate to create post screen when implemented
+    alert('Create Post feature coming soon!');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm px-4 py-6">
+      <div className="bg-white dark:bg-gray-800 shadow-sm px-4 py-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Communities</h1>
-          <Button 
-            size="sm" 
-            className="bg-unicampus-red hover:bg-unicampus-red-dark text-white"
-          >
-            Create Community
-          </Button>
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
-        {communities.map((community, index) => (
-          <Card 
-            key={community.id} 
-            className="animate-slide-up cursor-pointer hover:shadow-lg transition-all"
-            style={{ animationDelay: `${index * 0.1}s` }}
-            onClick={() => navigate(`/communities/${community.id}`)}
-          >
-            <CardContent className="p-0">
-              {/* Banner Image */}
-              {community.bannerImage && (
-                <div className="h-32 w-full overflow-hidden rounded-t-lg">
-                  <img 
-                    src={community.bannerImage} 
-                    alt={community.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              
-              {/* Community Info */}
-              <div className="p-4">
-                <div className="flex items-start space-x-4">
-                  <div className="text-3xl">{community.icon}</div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
-                      {community.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-3">
-                      {community.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="secondary" className="text-xs">
-                        {community.memberCount.toLocaleString()} members
-                      </Badge>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="border-unicampus-red text-unicampus-red hover:bg-unicampus-red hover:text-white"
-                      >
-                        Join
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      {/* Top Tab Navigator */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <Tabs defaultValue="trending" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 bg-transparent h-12 rounded-none border-b-0">
+            <TabsTrigger 
+              value="trending" 
+              className="data-[state=active]:bg-transparent data-[state=active]:text-unicampus-red data-[state=active]:border-b-2 data-[state=active]:border-unicampus-red data-[state=active]:shadow-none rounded-none text-gray-600 dark:text-gray-400"
+            >
+              Trending
+            </TabsTrigger>
+            <TabsTrigger 
+              value="following" 
+              className="data-[state=active]:bg-transparent data-[state=active]:text-unicampus-red data-[state=active]:border-b-2 data-[state=active]:border-unicampus-red data-[state=active]:shadow-none rounded-none text-gray-600 dark:text-gray-400"
+            >
+              Following
+            </TabsTrigger>
+            <TabsTrigger 
+              value="browse" 
+              className="data-[state=active]:bg-transparent data-[state=active]:text-unicampus-red data-[state=active]:border-b-2 data-[state=active]:border-unicampus-red data-[state=active]:shadow-none rounded-none text-gray-600 dark:text-gray-400"
+            >
+              Browse
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="trending" className="mt-0">
+            <TrendingPostsTab />
+          </TabsContent>
+          
+          <TabsContent value="following" className="mt-0">
+            <FollowingFeedTab />
+          </TabsContent>
+          
+          <TabsContent value="browse" className="mt-0">
+            <BrowseCommunitiesTab />
+          </TabsContent>
+        </Tabs>
       </div>
+
+      {/* Floating Action Button */}
+      <Button
+        className="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-unicampus-red hover:bg-unicampus-red-dark text-white shadow-lg z-40"
+        onClick={handleCreatePost}
+      >
+        <Plus className="h-6 w-6" />
+      </Button>
 
       <BottomNavigation />
     </div>
