@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import BottomNavigation from '@/components/layout/BottomNavigation';
 import { communities, getPopulatedPosts, userFollowedCommunityIds } from '@/data/communitySampleData';
 import PostListItem from './PostListItem';
+import CreatePostScreen from './CreatePostScreen';
 import { ChevronLeft } from 'lucide-react';
 
 const CommunityDetailScreen = () => {
@@ -22,14 +23,15 @@ const CommunityDetailScreen = () => {
   );
   const [memberCount, setMemberCount] = useState(community?.memberCount || 0);
 
+  // State for create post modal
+  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+
   if (!community) {
     return <div>Community not found</div>;
   }
 
   const handleCreatePost = () => {
-    // Navigate to CreatePostScreen with community context
-    // For now, we'll open the existing modal with community pre-selected
-    navigate(`/communities/${communityId}/create-post`);
+    setIsCreatePostOpen(true);
   };
 
   const handleJoinLeave = () => {
@@ -142,6 +144,13 @@ const CommunityDetailScreen = () => {
           )}
         </div>
       </div>
+
+      {/* Create Post Modal */}
+      <CreatePostScreen 
+        isOpen={isCreatePostOpen} 
+        onClose={() => setIsCreatePostOpen(false)}
+        preselectedCommunityId={communityId}
+      />
 
       <BottomNavigation />
     </div>
