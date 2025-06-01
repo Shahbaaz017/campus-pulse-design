@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,8 @@ import CommunityDetailScreen from "@/components/communities/CommunityDetailScree
 import AttendanceScreen from "@/components/attendance/AttendanceScreen";
 import ResourcesScreen from "@/components/resources/ResourcesScreen";
 import SettingsScreen from "@/components/settings/SettingsScreen";
+import ProctorDashboard from "@/components/proctor/ProctorDashboard";
+import StudentManagementScreen from "@/components/proctor/StudentManagementScreen";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,26 @@ const AppRoutes = () => {
           </ProtectedRoute>
         } 
       />
+      
+      {/* Proctor Routes */}
+      <Route 
+        path="/proctor/dashboard" 
+        element={
+          <ProtectedRoute>
+            <ProctorDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/proctor/students" 
+        element={
+          <ProtectedRoute>
+            <StudentManagementScreen />
+          </ProtectedRoute>
+        } 
+      />
+      
+      {/* Existing Student Routes */}
       <Route 
         path="/results" 
         element={

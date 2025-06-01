@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -30,8 +29,7 @@ const ProctorLoginScreen = () => {
       try {
         const success = await login(facultyId, password, 'admin');
         if (success) {
-          alert('Proctor Login Successful! Proctor Dashboard TBD.');
-          navigate('/dashboard');
+          navigate('/proctor/dashboard');
         } else {
           setError('Login failed. Please try again.');
         }
