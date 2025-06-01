@@ -29,11 +29,11 @@ const StartingScreen = () => {
           </Button>
           
           <Button
-            onClick={() => navigate('/login/admin')}
+            onClick={() => navigate('/login/proctor')}
             variant="outline"
             className="w-full border-white text-white hover:bg-white hover:text-unicampus-red py-6 text-lg font-semibold"
           >
-            Admin Login
+            Proctor Login
           </Button>
           
           <Button

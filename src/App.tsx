@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginScreen from "@/components/auth/LoginScreen";
+import ProctorLoginScreen from "@/components/auth/ProctorLoginScreen";
 import Dashboard from "@/components/dashboard/Dashboard";
 import ResultsScreen from "@/components/results/ResultsScreen";
 import CommunitiesScreen from "@/components/communities/CommunitiesScreen";
@@ -30,6 +31,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Index />} />
       <Route path="/login/student" element={<LoginScreen type="student" />} />
       <Route path="/login/admin" element={<LoginScreen type="admin" />} />
+      <Route path="/login/proctor" element={<ProctorLoginScreen />} />
       <Route path="/register" element={<div className="min-h-screen flex items-center justify-center">Registration coming soon!</div>} />
       <Route 
         path="/dashboard" 
